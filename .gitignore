@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+*.ipch
+*.pdb
+*.ilk
+*.tlog
+*.lastbuildstate
+StateMachine/StateMachine/Debug/StateMachine.log
+StateMachine/StateMachine/Debug/StateMachine.exe.recipe
+StateMachine/StateMachine/Debug/vc142.idb
