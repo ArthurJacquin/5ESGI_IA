@@ -1,4 +1,5 @@
 #include "Tamagochi.h"
+#include <iostream>
 
 Tamagochi::Tamagochi()
 {
@@ -12,14 +13,17 @@ Tamagochi::Tamagochi()
 void Tamagochi::Drink()
 {
 	currentThirst += 20;
+	std::cout << "Je bois\n";
 }
 
 void Tamagochi::Eat()
 {
 	currentHunger += 50;
+	std::cout << "Je mange\n";
 }
 
 void Tamagochi::Die()
 {
+	std::cout << "Je suis mort\n";
 	isAlive = false;
 }
