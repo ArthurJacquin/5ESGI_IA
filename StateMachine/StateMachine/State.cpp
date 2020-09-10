@@ -6,11 +6,11 @@ State::State()
     pairs.reserve(2);
 }
 
-State::State(string s, void(*f)())
+State::State(string s, void(*f)(Tamagochi*))
 {
     name = s;
     pairs.reserve(2);
-
+    action = f;
 }
 
 State::~State()
@@ -29,7 +29,7 @@ void State::AddTransition(Transition* t, State* s)
     pairs.push_back(p);
 }
 
-void State::ProcessAction()
+void State::ProcessAction(Tamagochi* t)
 {
-    action();
+    action(t);
 }

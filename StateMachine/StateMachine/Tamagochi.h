@@ -16,7 +16,7 @@ public:
 	void Eat();
 	void Die();
 
-	bool IsAlive()const { return isAlive; };
-	float GetCurrentHunger()const { return currentHunger; };
-	float GetCurrentThirst()const { return currentThirst; };
+	bool IsAlive()const { return isAlive; }
+	float GetCurrentHunger()const { return currentHunger; }
+	float GetCurrentThirst()const { return currentThirst; }
 };

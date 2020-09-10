@@ -12,7 +12,7 @@ class StateMachine
 public:
 	StateMachine();
 	StateMachine(Tamagochi* tama, GameState* gameState, State* initialState);
-	~StateMachine(); //Faire tous les delete
+	~StateMachine();
 
 	void CreateStateMachine();
 	void ProcessState();
