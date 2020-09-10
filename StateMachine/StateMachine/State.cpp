@@ -6,7 +6,7 @@ State::State()
     pairs.reserve(2);
 }
 
-State::State(string s, void(*f)(Tamagochi*))
+State::State(string s, void(*f)(Tamagochi*, GameState* gs))
 {
     name = s;
     pairs.reserve(2);
@@ -15,21 +15,15 @@ State::State(string s, void(*f)(Tamagochi*))
 
 State::~State()
 {
-    int N = pairs.size();
-    for (size_t i = 0; i < N; ++i)
-    {
-        delete pairs[i].endState;
-        delete pairs[i].transition;
-    }
 }
 
 void State::AddTransition(Transition* t, State* s)
 {
-    Pair p(t, s);
+    std::pair< Transition*, State*> p = make_pair(t, s);
     pairs.push_back(p);
 }
 
-void State::ProcessAction(Tamagochi* t)
+void State::ProcessAction(Tamagochi* t, GameState* gs)
 {
-    action(t);
+    action(t, gs);
 }

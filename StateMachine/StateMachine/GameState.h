@@ -19,6 +19,7 @@ public:
 	void setFoodAmount(int f) { foodAmount = f; }
 	void setDrinkAmount(int w) { waterAmount = w; }
 
+	void DisplayResources();
 };
 
 
