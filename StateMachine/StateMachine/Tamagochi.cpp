@@ -1,8 +1,9 @@
 #include "Tamagochi.h"
 #include <iostream>
 
-Tamagochi::Tamagochi()
+Tamagochi::Tamagochi(std::string s)
 {
+	name = s;
 	maxHunger = 100;
 	maxThirst = 100;
 	currentHunger = 0;
@@ -10,20 +11,41 @@ Tamagochi::Tamagochi()
 	isAlive = true;
 }
 
-void Tamagochi::Drink()
+void Tamagochi::Drink(GameState* gs)
 {
-	currentThirst += 20;
-	std::cout << "Je bois\n";
+	int amount = 20;
+	currentThirst -= amount;
+	gs->setDrinkAmount(gs->getWaterAmount() - amount);
+	std::cout << "-> " << name << " boit\n";
 }
 
-void Tamagochi::Eat()
+void Tamagochi::Eat(GameState* gs)
 {
-	currentHunger += 50;
-	std::cout << "Je mange\n";
+	int amount = 50;
+	currentHunger -= amount;
+	gs->setFoodAmount(gs->getFoodAmount() - amount);
+	std::cout << "-> " << name << " mange\n";
 }
 
 void Tamagochi::Die()
 {
-	std::cout << "Je suis mort\n";
+	std::cout << "->  " << name << " est mort(e)\n";
 	isAlive = false;
+}
+
+void Tamagochi::UpdateStats()
+{
+	if (currentThirst < maxThirst)
+		currentThirst += 5;
+	
+	if(currentHunger < maxHunger)
+		currentHunger += 5;
+}
+
+void Tamagochi::DisplayStats()
+{
+	std::cout << "Stats :" << std::endl;
+	//std::cout << "Hunger : " << currentHunger << std::endl; 
+	std::cout << "Thirst : " << currentThirst << std::endl;
+	std::cout << std::endl;
 }

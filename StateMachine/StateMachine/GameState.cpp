@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include <iostream>
 
 GameState::GameState()
 {
@@ -6,7 +7,7 @@ GameState::GameState()
 	waterAmount = 100;
 
 	hungerThreshold = 50;
-	thirstThreshold = 60;
+	thirstThreshold = 50;
 }
 
 GameState::GameState(int f, int w)
@@ -15,5 +16,13 @@ GameState::GameState(int f, int w)
 	waterAmount = w;
 
 	hungerThreshold = 50;
-	thirstThreshold = 60;
+	thirstThreshold = 50;
+}
+
+void GameState::DisplayResources()
+{
+	std::cout << "Resources :" << std::endl;
+	//std::cout << "Food : " << foodAmount << std::endl;
+	std::cout << "Water : " << waterAmount << std::endl;
+	std::cout << std::endl;
 }

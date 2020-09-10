@@ -8,17 +8,17 @@ using namespace std;
 class State
 {
 	string name;
-	vector<Pair> pairs;
-	void(*action)(Tamagochi*);
+	vector<std::pair<Transition*, State*>> pairs;
+	void(*action)(Tamagochi*, GameState* gs);
 
 public:
 	State();
-	State(string s, void(*f)(Tamagochi*));
+	State(string s, void(*f)(Tamagochi*, GameState*));
 	~State();
 
 	void AddTransition(Transition* t, State* s);
-	void ProcessAction(Tamagochi* t);
+	void ProcessAction(Tamagochi* t, GameState* gs);
 
-	vector<Pair> GetPairs()const { return pairs; };
+	vector<std::pair<Transition*, State*>> GetPairs()const { return pairs; };
 
 };
