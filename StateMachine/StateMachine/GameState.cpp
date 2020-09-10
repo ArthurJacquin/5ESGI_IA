@@ -22,7 +22,7 @@ GameState::GameState(int f, int w)
 void GameState::DisplayResources()
 {
 	std::cout << "Resources :" << std::endl;
-	//std::cout << "Food : " << foodAmount << std::endl;
+	std::cout << "Food : " << foodAmount << std::endl;
 	std::cout << "Water : " << waterAmount << std::endl;
 	std::cout << std::endl;
 }

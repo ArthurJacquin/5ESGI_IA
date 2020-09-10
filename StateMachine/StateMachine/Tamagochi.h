@@ -6,11 +6,11 @@ class Tamagochi
 {
 	std::string name;
 
-	float maxHunger;
-	float maxThirst;
+	int maxHunger;
+	int maxThirst;
 
-	float currentHunger;
-	float currentThirst;
+	int currentHunger;
+	int currentThirst;
 	bool isAlive;
 
 public:
@@ -22,8 +22,11 @@ public:
 	void Die();
 
 	bool IsAlive()const { return isAlive; }
-	float GetCurrentHunger()const { return currentHunger; }
-	float GetCurrentThirst()const { return currentThirst; }
+	const int GetCurrentHunger()const { return currentHunger; }
+	const int GetCurrentThirst()const { return currentThirst; }
+
+	const int GetMaxHunger()const { return maxHunger; }
+	const int GetMaxThirst()const { return maxThirst; }
 
 	void UpdateStats();
 	void DisplayStats();
