@@ -8,14 +8,17 @@ class Action
 {
 	string name;
 	vector<string> preconditions;
-	string effets;
+	string effect;
+	int cost;
 
 public:
 	Action();
-	Action(string n);
+	Action(string n, int cost = 1);
 	~Action();
 
 	void AddPrecondition(string pc);
-	void AddEffect(string e);
+	void SetEffect(string e);
 
+	vector<string> GetPreconditions()const { return preconditions; }
+	string GetEffect()const { return effect; }
 };
