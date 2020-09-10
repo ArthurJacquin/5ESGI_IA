@@ -1,19 +1,16 @@
 #pragma once
 #include<functional>
-#include "State.h"
+#include "Tamagochi.h"
+#include "GameState.h"
 
 class Transition
 {
-	State* endState;
-	std::function<bool()> test;
+	bool(*condition)(Tamagochi*, GameState*);
 
 public:
 	Transition();
-	Transition(std::function<bool()> f, State* end);
+	Transition(bool(*f)(Tamagochi*, GameState*));
+	~Transition();
 
-	bool Process() const;
-
-	State* GetEndState()const { return endState; }
-
-	void SetEndState(State* s) { endState = s; }
+	bool Process(Tamagochi* t, GameState* gs) const;
 };

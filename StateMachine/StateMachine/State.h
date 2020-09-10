@@ -1,20 +1,24 @@
 #pragma once
 #include<string>
 #include<vector>
-#include "Transition.h"
+#include "Pair.h"
 
 using namespace std;
 
 class State
 {
 	string name;
-	vector<Transition*> transitions;
+	vector<Pair> pairs;
+	void(*action)();
 
 public:
 	State();
-	State(string s);
+	State(string s, void(*f)());
+	~State();
 
 	void AddTransition(Transition* t, State* s);
-	
-	vector<Transition*> GetTransition()const { return transitions; };
+	void ProcessAction();
+
+	vector<Pair> GetPairs()const { return pairs; };
+
 };

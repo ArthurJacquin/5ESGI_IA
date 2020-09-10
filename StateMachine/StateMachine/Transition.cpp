@@ -2,16 +2,19 @@
 
 Transition::Transition()
 {
-    test = [] { return true; };
-    endState = new State("Default");
+    condition = [](Tamagochi* t, GameState* gs) { return true; };
 }
 
-Transition::Transition(std::function<bool()> f, State* end)
-    :test(f), endState(end)
+Transition::Transition(bool(*f)(Tamagochi*, GameState*))
+    :condition(f)
 {
 }
 
-bool Transition::Process() const
+Transition::~Transition()
 {
-    return test();
+}
+
+bool Transition::Process(Tamagochi* t, GameState* gs) const
+{
+    return condition(t, gs);
 }
