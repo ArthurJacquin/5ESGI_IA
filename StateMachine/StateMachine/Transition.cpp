@@ -2,10 +2,11 @@
 
 Transition::Transition()
 {
-    //TODO
+    test = [] { return true; };
+    endState = new State("Default");
 }
 
-Transition::Transition(std::function<bool()> f, State end)
+Transition::Transition(std::function<bool()> f, State* end)
     :test(f), endState(end)
 {
 }

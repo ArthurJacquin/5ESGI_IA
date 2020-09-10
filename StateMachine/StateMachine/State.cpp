@@ -12,8 +12,8 @@ State::State(string s)
     transitions.reserve(2);
 }
 
-void State::AddTransition(Transition t, const State s)
+void State::AddTransition(Transition* t, State* s)
 {
-    t.SetEndState(s);
+    t->SetEndState(s);
     transitions.push_back(t);
 }

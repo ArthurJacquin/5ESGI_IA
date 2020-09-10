@@ -8,13 +8,13 @@ using namespace std;
 class State
 {
 	string name;
-	vector<Transition> transitions;
+	vector<Transition*> transitions;
 
 public:
 	State();
 	State(string s);
 
-	void AddTransition(const Transition t, const State s);
+	void AddTransition(Transition* t, State* s);
 	
-	vector<Transition> GetTransition()const { return transitions; };
+	vector<Transition*> GetTransition()const { return transitions; };
 };
