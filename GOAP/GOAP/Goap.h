@@ -1,7 +1,16 @@
 #pragma once
 #include "Actions.h"
 
-class goapSolver
+class GoapSolver
 {
-	vector<Action> allActions;
+	vector<Action*> allActions;
+	Action* goalAction;
+
+public:
+	GoapSolver();
+	GoapSolver(Action* goal);
+	~GoapSolver();
+
+	void CreateSolver();
+	void Solve();
 };
