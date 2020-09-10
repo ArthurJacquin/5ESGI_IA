@@ -18,5 +18,5 @@ public:
 	void ProcessState();
 	void ChangeState(State* s, GameState* gs);
 
-	State* GetCurrentState() const { return currentState; }
+	const State* GetCurrentState() const { return currentState; }
 };
