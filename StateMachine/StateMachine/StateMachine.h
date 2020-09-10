@@ -5,18 +5,18 @@
 
 class StateMachine
 {
-	State* currentState;
+	const State* currentState;
 	Tamagochi* tamagochi;
 	GameState* gameState;
 
 public:
 	StateMachine();
-	StateMachine(Tamagochi* tama, GameState* gameState, State* initialState);
+	StateMachine(Tamagochi* const tama, GameState* const gameState, const State* initialState);
 	~StateMachine();
 
 	void CreateStateMachine();
 	void ProcessState();
-	void ChangeState(State* s, GameState* gs);
+	void ChangeState(const State* s, GameState* const gs);
 
 	const State* GetCurrentState() const { return currentState; }
 };

@@ -5,12 +5,12 @@
 
 class Transition
 {
-	bool(*condition)(Tamagochi*, GameState*);
+	const bool(*condition)(const Tamagochi* const, const GameState* const);
 
 public:
 	Transition();
-	Transition(bool(*f)(Tamagochi*, GameState*));
+	Transition(const bool(*f)(const Tamagochi* const, const GameState* const));
 	~Transition();
 
-	bool Process(Tamagochi* t, GameState* gs) const;
+	const bool Process(const Tamagochi* const t, const GameState* const gs) const;
 };

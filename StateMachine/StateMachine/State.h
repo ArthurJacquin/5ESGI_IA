@@ -1,24 +1,23 @@
 #pragma once
 #include<string>
 #include<vector>
-#include "Pair.h"
+#include "Transition.h"
 
 using namespace std;
 
 class State
 {
 	string name;
-	vector<std::pair<Transition*, State*>> pairs;
-	void(*action)(Tamagochi*, GameState* gs);
+	vector<std::pair<const Transition* const, const State* const>> pairs;
+	void(*action)(Tamagochi* const, GameState* const);
 
 public:
 	State();
-	State(string s, void(*f)(Tamagochi*, GameState*));
+	State(string s, void(*f)(Tamagochi* const, GameState* const));
 	~State();
 
-	void AddTransition(Transition* t, State* s);
-	void ProcessAction(Tamagochi* t, GameState* gs);
+	void AddTransition(const Transition* const t, const State* const s);
+	void ProcessAction(Tamagochi* const t, GameState* const gs)const;
 
-	vector<std::pair<Transition*, State*>> GetPairs()const { return pairs; };
-
+	const vector<std::pair<const Transition* const, const State* const>> GetPairs()const { return pairs; };
 };

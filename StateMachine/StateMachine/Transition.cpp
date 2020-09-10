@@ -2,10 +2,10 @@
 
 Transition::Transition()
 {
-    condition = [](Tamagochi* t, GameState* gs) { return true; };
+    condition = [](const Tamagochi* const t, const GameState* const gs)->const bool { return true; };
 }
 
-Transition::Transition(bool(*f)(Tamagochi*, GameState*))
+Transition::Transition(const bool(*f)(const Tamagochi* const, const GameState* const))
     :condition(f)
 {
 }
@@ -14,7 +14,7 @@ Transition::~Transition()
 {
 }
 
-bool Transition::Process(Tamagochi* t, GameState* gs) const
+const bool Transition::Process(const Tamagochi* const t, const GameState* const gs) const
 {
     return condition(t, gs);
 }
