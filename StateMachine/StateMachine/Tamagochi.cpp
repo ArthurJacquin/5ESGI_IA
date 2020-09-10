@@ -23,7 +23,7 @@ void Tamagochi::Drink(GameState* gs)
 
 void Tamagochi::Eat(GameState* gs)
 {
-	int amount = 50;
+	int amount = 30;
 	currentHunger -= amount;
 	gs->setFoodAmount(gs->getFoodAmount() - amount);
 	drawing::eatOrDrinkDog();
@@ -43,13 +43,13 @@ void Tamagochi::UpdateStats()
 		currentThirst += 5;
 	
 	if(currentHunger < maxHunger)
-		currentHunger += 5;
+		currentHunger += 2;
 }
 
 void Tamagochi::DisplayStats()
 {
 	std::cout << "Stats :" << std::endl;
-	//std::cout << "Hunger : " << currentHunger << std::endl; 
+	std::cout << "Hunger : " << currentHunger << std::endl; 
 	std::cout << "Thirst : " << currentThirst << std::endl;
 	std::cout << std::endl;
 }
