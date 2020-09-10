@@ -1,7 +1,9 @@
 #include <iostream>
+#include <Windows.h>
 #include "StateMachine.h"
-#include <conio.h>
 #include "DisplayDrawing.h"
+
+
 using namespace std;
 
 int main()
@@ -36,6 +38,10 @@ int main()
         tama.UpdateStats();
 
         sm.ProcessState();
+
+        cout << "----------------------------------------------------------------" << endl;
+
+        Sleep(1000);
     }
 
     return 0;
