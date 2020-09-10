@@ -1,31 +1,28 @@
-#include "Tamagochi.h"
 #include <iostream>
+#include "Tamagochi.h"
 #include "DisplayDrawing.h"
+#include "ConstValues.h"
 
 Tamagochi::Tamagochi(std::string s)
 {
 	name = s;
-	maxHunger = 100;
-	maxThirst = 100;
 	currentHunger = 0;
 	currentThirst = 0;
 	isAlive = true;
 }
 
-void Tamagochi::Drink(GameState* gs)
+void Tamagochi::Drink(GameState* const gs)
 {
-	int amount = 20;
-	currentThirst -= amount;
-	gs->setDrinkAmount(gs->getWaterAmount() - amount);
+	currentThirst -= ConstValues::thirstDecrementFromWater;
+	gs->setDrinkAmount(gs->getWaterAmount() - ConstValues::thirstDecrementFromWater);
 	drawing::eatOrDrinkDog();
 	std::cout << "-> " << name << " boit\n";
 }
 
-void Tamagochi::Eat(GameState* gs)
+void Tamagochi::Eat(GameState* const gs)
 {
-	int amount = 30;
-	currentHunger -= amount;
-	gs->setFoodAmount(gs->getFoodAmount() - amount);
+	currentHunger -= ConstValues::hungerDecrementFromFood;
+	gs->setFoodAmount(gs->getFoodAmount() - ConstValues::hungerDecrementFromFood);
 	drawing::eatOrDrinkDog();
 	std::cout << "-> " << name << " mange\n";
 }
@@ -39,14 +36,14 @@ void Tamagochi::Die()
 
 void Tamagochi::UpdateStats()
 {
-	if (currentThirst < maxThirst)
-		currentThirst += 5;
+	if (currentThirst < ConstValues::maxThirst)
+		currentThirst += ConstValues::thirstIncrement;
 	
-	if(currentHunger < maxHunger)
-		currentHunger += 2;
+	if(currentHunger < ConstValues::maxHunger)
+		currentHunger += ConstValues::hungerIncrement;
 }
 
-void Tamagochi::DisplayStats()
+void Tamagochi::DisplayStats()const
 {
 	std::cout << "Stats :" << std::endl;
 	std::cout << "Hunger : " << currentHunger << std::endl; 

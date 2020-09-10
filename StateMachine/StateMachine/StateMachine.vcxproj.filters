@@ -30,10 +30,10 @@
     <ClInclude Include="GameState.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Pair.h">
+    <ClInclude Include="DisplayDrawing.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="DisplayDrawing.h">
+    <ClInclude Include="ConstValues.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

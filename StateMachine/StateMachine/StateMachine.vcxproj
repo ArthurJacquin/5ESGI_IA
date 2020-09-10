@@ -148,6 +148,7 @@
     <ClCompile Include="Transition.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConstValues.h" />
     <ClInclude Include="DisplayDrawing.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="State.h" />

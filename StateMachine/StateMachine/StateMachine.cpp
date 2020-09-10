@@ -1,6 +1,7 @@
-#include "StateMachine.h"
 #include<functional>
 #include <iostream>
+#include "StateMachine.h"
+#include "ConstValues.h"
 
 StateMachine::StateMachine()
 {
@@ -9,7 +10,7 @@ StateMachine::StateMachine()
     gameState = nullptr;
 }
 
-StateMachine::StateMachine(Tamagochi* tama, GameState* gs, State* initialState)
+StateMachine::StateMachine(Tamagochi* const tama, GameState* const gs, const State* initialState)
     :tamagochi(tama), gameState(gs), currentState(initialState)
 {
 }
@@ -21,26 +22,26 @@ StateMachine::~StateMachine()
 
 void StateMachine::CreateStateMachine()
 {
-    State* life = new State("Life", [](Tamagochi* t, GameState* gs) {});
-    State* thirsty = new State("Thirsty", [](Tamagochi* t, GameState* gs) {});
-    State* drink = new State("Drink", [](Tamagochi* t, GameState* gs) { t->Drink(gs); });
-    State* hungry = new State("Hungry", [](Tamagochi* t, GameState* gs) {});
-    State* eat = new State("Eat", [](Tamagochi* t, GameState* gs) { t->Eat(gs); });
-    State* death = new State("Death", [](Tamagochi* t, GameState* gs) { t->Die(); });
+    State* life = new State("Life", [](Tamagochi* const t, GameState* const gs) {});
+    State* thirsty = new State("Thirsty", [](Tamagochi* const t, GameState* const gs) {});
+    State* drink = new State("Drink", [](Tamagochi* const t, GameState* const gs) { t->Drink(gs); });
+    State* hungry = new State("Hungry", [](Tamagochi* const t, GameState* const gs) {});
+    State* eat = new State("Eat", [](Tamagochi* const t, GameState* const gs) { t->Eat(gs); });
+    State* death = new State("Death", [](Tamagochi* const t, GameState* const gs) { t->Die(); });
 
     //---------------------------Thirsthy-----------------
     //Life -> Thirsty
-    auto checkThirstiness = [](Tamagochi* t, GameState* gs) { return t->GetCurrentThirst() >= gs->GetThirstThreshold(); } ;
+    auto checkThirstiness = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentThirst() >= ConstValues::thirstThreshold; } ;
     Transition* lifeToThirsty = new Transition(checkThirstiness);
     life->AddTransition(lifeToThirsty, thirsty);
 
     //Thirsty -> Drink
-    auto checkWaterAmount = [](Tamagochi* t, GameState* gs) { return gs->getWaterAmount() > 0; };
+    auto checkWaterAmount = [](const Tamagochi* const t, const GameState* const gs)->const bool { return gs->getWaterAmount() > 0; };
     Transition* thirstyToDrink = new Transition(checkWaterAmount);
     thirsty->AddTransition(thirstyToDrink, drink);
 
     //Thirsty -> Death
-    auto checkDehydration = [](Tamagochi* t, GameState* gs) { return t->GetCurrentThirst() >= t->GetMaxThirst(); };
+    auto checkDehydration = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentThirst() >= ConstValues::maxThirst; };
     Transition* thirstyToDeath = new Transition(checkDehydration);
     thirsty->AddTransition(thirstyToDeath, death);
 
@@ -49,23 +50,23 @@ void StateMachine::CreateStateMachine()
     drink->AddTransition(drinkToThirsty, thirsty);
 
     //Drink -> Life
-    auto checkHydration = [](Tamagochi* t, GameState* gs) { return t->GetCurrentThirst() > gs->GetThirstThreshold(); };
+    auto checkHydration = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentThirst() < ConstValues::thirstThreshold; };
     Transition* drinkToLife = new Transition(checkHydration);
     drink->AddTransition(drinkToLife, life);
 
     //--------------------Hungry------------------
     //Life-> Hungry
-    auto checkHunger = [](Tamagochi* t, GameState* gs) { return t->GetCurrentHunger() >= gs->GetHungerThreshold(); };
+    auto checkHunger = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentHunger() >= ConstValues::hungerThreshold;; };
     Transition* lifeToHunger = new Transition(checkHunger);
     life->AddTransition(lifeToHunger, hungry);
 
     //Hungry -> Eat
-    auto checkFoodAmount = [](Tamagochi* t, GameState* gs) {  return gs->getFoodAmount() > 0; };
+    auto checkFoodAmount = [](const Tamagochi* const t, const GameState* const gs)->const bool {  return gs->getFoodAmount() > 0; };
     Transition* HungryToEat = new Transition(checkFoodAmount);
     hungry->AddTransition(HungryToEat, eat);
 
     //Hungry -> Death
-    auto checkStarvation = [](Tamagochi* t, GameState* gs) { return t->GetCurrentHunger() >= t->GetMaxHunger(); };
+    auto checkStarvation = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentHunger() >= ConstValues::maxHunger; };
     Transition* hungerToDeath = new Transition(checkStarvation);
     hungry->AddTransition(hungerToDeath, death);
 
@@ -74,7 +75,7 @@ void StateMachine::CreateStateMachine()
     eat->AddTransition(eatToHungry, hungry);
 
     //Eat -> Life
-    auto checkSatiety = [](Tamagochi* t, GameState* gs) { return t->GetCurrentHunger() > gs->GetHungerThreshold(); };
+    auto checkSatiety = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentHunger() < ConstValues::hungerThreshold;; };
     Transition* eatToLife = new Transition(checkSatiety);
     eat->AddTransition(eatToLife, life);
     
@@ -94,7 +95,7 @@ void StateMachine::ProcessState()
     }
 }
 
-void StateMachine::ChangeState(State* s, GameState* gs)
+void StateMachine::ChangeState(const State* s, GameState* gs)
 {
     currentState = s;
     s->ProcessAction(tamagochi, gs);

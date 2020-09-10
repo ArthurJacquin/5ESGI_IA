@@ -4,22 +4,17 @@ class GameState {
 	int foodAmount;
 	int waterAmount;
 
-	int hungerThreshold;
-	int thirstThreshold;
-
 public:
 	GameState();
 	GameState(int f, int w);
 
-	int getFoodAmount()const { return foodAmount; }
-	int getWaterAmount()const { return waterAmount; }
-	int GetHungerThreshold()const { return hungerThreshold; }
-	int GetThirstThreshold()const { return thirstThreshold; }
+	const int getFoodAmount()const { return foodAmount; }
+	const int getWaterAmount()const { return waterAmount; }
 
-	void setFoodAmount(int f) { foodAmount = f; }
-	void setDrinkAmount(int w) { waterAmount = w; }
+	void setFoodAmount(const int f) { foodAmount = f; }
+	void setDrinkAmount(const int w) { waterAmount = w; }
 
-	void DisplayResources();
+	void DisplayResources()const;
 };
 
 
