@@ -1,5 +1,6 @@
 #include "StateMachine.h"
 #include<functional>
+#include <iostream>
 
 StateMachine::StateMachine()
 {
@@ -22,33 +23,33 @@ StateMachine::~StateMachine()
 
 void StateMachine::CreateStateMachine()
 {
-    State* life = new State("Life", [] {});
-    State* thirsty = new State("Thirsty", [] {});
-    State* drink = new State("", tamagochi->Drink());
-    State* death = new State("Death");
+    State* life = new State("Life", [](Tamagochi* t) {});
+    State* thirsty = new State("Thirsty", [](Tamagochi* t) {});
+    State* drink = new State("Drink", [](Tamagochi* t) { t->Drink(); });
+    State* death = new State("Death", [](Tamagochi* t) { t->Die(); });
 
     //Life -> Thirsty
-    auto lambda = [](Tamagochi* t, GameState* gs) { return t->GetCurrentThirst() <= gs->GetThirstThreshold(); } ;
-    Transition* lifeToThirsty = new Transition(lambda);
+    auto checkThirstiness = [](Tamagochi* t, GameState* gs) { return t->GetCurrentThirst() <= gs->GetThirstThreshold(); } ;
+    Transition* lifeToThirsty = new Transition(checkThirstiness);
     life->AddTransition(lifeToThirsty, thirsty);
 
     //Drink -> Thirsty
-    Transition* drinkToThirsty = new Transition(lambda);
+    Transition* drinkToThirsty = new Transition(checkThirstiness);
     life->AddTransition(drinkToThirsty, thirsty);
 
     //Thirsty -> Drink
-    auto lambda = [](Tamagochi* t, GameState* gs) { return gs->getWaterAmount() > 0; };
-    Transition* thirstyToDrink = new Transition(lambda);
+    auto checkWaterAmount = [](Tamagochi* t, GameState* gs) { return gs->getWaterAmount() > 0; };
+    Transition* thirstyToDrink = new Transition(checkWaterAmount);
     life->AddTransition(thirstyToDrink, drink);
 
     //Thirsty -> Death
-    auto lambda = [](Tamagochi* t, GameState* gs) { return t->GetCurrentThirst() <= 0; };
-    Transition* thirstyToDeath = new Transition(lambda);
+    auto checkDehydration = [](Tamagochi* t, GameState* gs) { return t->GetCurrentThirst() <= 0; };
+    Transition* thirstyToDeath = new Transition(checkDehydration);
     life->AddTransition(thirstyToDeath, death);
 
     //Drink -> Life
-    auto lambda = [](Tamagochi* t, GameState* gs) { return t->GetCurrentThirst() > gs->GetThirstThreshold(); };
-    Transition* drinkToLife = new Transition(lambda);
+    auto checkHydration = [](Tamagochi* t, GameState* gs) { return t->GetCurrentThirst() > gs->GetThirstThreshold(); };
+    Transition* drinkToLife = new Transition(checkHydration);
     life->AddTransition(drinkToLife, life);
 }
 
@@ -59,14 +60,13 @@ void StateMachine::ProcessState()
     {
         if (currentState->GetPairs()[i].transition->Process(tamagochi, gameState))
         {
-            ChangeState(currentState->GetPairs()[i].)
+            ChangeState(currentState->GetPairs()[i].endState);
         }
     }
-
 }
 
 void StateMachine::ChangeState(State* s)
 {
     currentState = s;
-    s
+    s->ProcessAction(tamagochi);
 }
