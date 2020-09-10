@@ -1,5 +1,6 @@
 #include "Tamagochi.h"
 #include <iostream>
+#include "DisplayDrawing.h"
 
 Tamagochi::Tamagochi(std::string s)
 {
@@ -16,6 +17,7 @@ void Tamagochi::Drink(GameState* gs)
 	int amount = 20;
 	currentThirst -= amount;
 	gs->setDrinkAmount(gs->getWaterAmount() - amount);
+	drawing::eatOrDrinkDog();
 	std::cout << "-> " << name << " boit\n";
 }
 
@@ -24,11 +26,13 @@ void Tamagochi::Eat(GameState* gs)
 	int amount = 50;
 	currentHunger -= amount;
 	gs->setFoodAmount(gs->getFoodAmount() - amount);
+	drawing::eatOrDrinkDog();
 	std::cout << "-> " << name << " mange\n";
 }
 
 void Tamagochi::Die()
 {
+	drawing::deadDog();
 	std::cout << "->  " << name << " est mort(e)\n";
 	isAlive = false;
 }

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "StateMachine.h"
 #include <conio.h>
-
+#include "DisplayDrawing.h"
 using namespace std;
 
 int main()
@@ -12,6 +12,7 @@ int main()
     string name;
     
     cout << "Welcome to TAMAGOCHI !" << endl;
+    drawing::iddleDog();
     cout << "Let's set some parameters !" << endl;
     cout << "Choose a name ?" << endl;
     cin >> name;
