@@ -7,12 +7,12 @@ GameState::GameState()
 {
 }
 
-GameState::GameState(int chicken, int eggs, int fieldAmount, int wheat, int flour, int nut)
+GameState::GameState(const int chicken, const int eggs, const int fieldAmount, const int wheat, const int flour, const int nut)
 	:eggsAmount(eggs), flourAmount(flour), nutAmount(nut), chickenAmount(chicken), fieldAmount(fieldAmount), wheatAmount(wheat), mixedEggsAmount(0), mixedFlourAmount(0), mixedNutAmount(0), pancakeAmount(0)
 {
 }
 
-void GameState::CookPancake(int n)
+void GameState::CookPancake(const int n)
 {
 	mixedEggsAmount -= n;
 	mixedFlourAmount -= n;
@@ -27,7 +27,7 @@ void GameState::CookPancake(int n)
 	std::cout << "----------------------------------------------------" << std::endl << std::endl;
 }
 
-void GameState::AddMixedEggs(int n)
+void GameState::AddMixedEggs(const int n)
 {
 	eggsAmount -= n;
 	mixedEggsAmount += n;
@@ -38,7 +38,7 @@ void GameState::AddMixedEggs(int n)
 	std::cout << "----------------------------------------------------" << std::endl << std::endl;
 }
 
-void GameState::AddMixedFlour(int n)
+void GameState::AddMixedFlour(const int n)
 {
 	flourAmount -= n;
 	mixedFlourAmount += n;
@@ -49,7 +49,7 @@ void GameState::AddMixedFlour(int n)
 	std::cout << "----------------------------------------------------" << std::endl << std::endl;
 }
 
-void GameState::AddMixedNut(int n)
+void GameState::AddMixedNut(const int n)
 {
 	nutAmount -= n;
 	mixedNutAmount += n;
@@ -60,7 +60,7 @@ void GameState::AddMixedNut(int n)
 	std::cout << "----------------------------------------------------" << std::endl << std::endl;
 }
 
-void GameState::CollectEggs(int n)
+void GameState::CollectEggs(const int n)
 {
 	chickenAmount -= n;
 	eggsAmount += n;
@@ -71,13 +71,13 @@ void GameState::CollectEggs(int n)
 	std::cout << "----------------------------------------------------" << std::endl << std::endl;
 }
 
-void GameState::AddChicken(int n)
+void GameState::AddChicken(const int n)
 {
 	chickenAmount += n;
 	std::cout << "+" << n << " Chicken" << std::endl;
 }
 
-void GameState::BuyEggs(int n)
+void GameState::BuyEggs(const int n)
 {
 	eggsAmount += n;
 
@@ -86,7 +86,7 @@ void GameState::BuyEggs(int n)
 	std::cout << "----------------------------------------------------" << std::endl << std::endl;
 }
 
-void GameState::GrindFlour(int n)
+void GameState::GrindFlour(const int n)
 {
 	wheatAmount -= n;
 	flourAmount += n;
@@ -97,7 +97,7 @@ void GameState::GrindFlour(int n)
 	std::cout << "----------------------------------------------------" << std::endl << std::endl;
 }
 
-void GameState::HarvestWheat(int n)
+void GameState::HarvestWheat(const int n)
 {
 	fieldAmount -= n;
 	wheatAmount += n;
@@ -108,14 +108,14 @@ void GameState::HarvestWheat(int n)
 	std::cout << "----------------------------------------------------" << std::endl << std::endl;
 }
 
-void GameState::AddField(int n)
+void GameState::AddField(const int n)
 {
 	fieldAmount += n;
 
 	std::cout << "+" << n << " Field" << std::endl;
 }
 
-void GameState::BuyFlour(int n)
+void GameState::BuyFlour(const int n)
 {
 	flourAmount += n;
 
@@ -124,7 +124,7 @@ void GameState::BuyFlour(int n)
 	std::cout << "----------------------------------------------------" << std::endl << std::endl;
 }
 
-void GameState::BuyNut(int n)
+void GameState::BuyNut(const int n)
 {
 	nutAmount += n;
 

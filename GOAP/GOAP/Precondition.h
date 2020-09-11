@@ -12,9 +12,9 @@ class Precondition
 
 public :
 	Precondition();
-	Precondition(PreconditionName name, const bool(*f)(const GameState* const));
+	Precondition(const PreconditionName name, const bool(*f)(const GameState* const));
 	~Precondition();
 
-	bool Process(const GameState* const gs) const;
+	const bool Process(const GameState* const gs) const;
 	const PreconditionName GetName()const { return name; };
 };

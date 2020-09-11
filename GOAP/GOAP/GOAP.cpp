@@ -6,7 +6,7 @@ GoapSolver::GoapSolver()
 	goalAction = nullptr;
 }
 
-GoapSolver::GoapSolver(Action* goal)
+GoapSolver::GoapSolver(const Action* const goal)
 {
 	goalAction = goal;
 }
@@ -55,53 +55,43 @@ void GoapSolver::CreateSolver()
 	allActions.push_back(buyNut);
 
 	//Cook Pancake links
-	vector<const Effect*> effects = { new Effect(PreconditionName::GetPancake, [](GameState* const gs) { gs->CookPancake(1); })};
-	cookPancake->SetEffect(effects);
+	cookPancake->AddEffect( new Effect(PreconditionName::GetPancake, [](GameState* const gs) { gs->CookPancake(1); }));
 	cookPancake->AddPrecondition(new Precondition(PreconditionName::MixedEggs, [](const GameState* const gs)->const bool { return gs->GetMixedEggsAmount() > 0; }));
 	cookPancake->AddPrecondition(new Precondition(PreconditionName::MixedFlour, [](const GameState* const gs)->const bool { return gs->GetMixedFlourAmount() > 0; }));
 	cookPancake->AddPrecondition(new Precondition(PreconditionName::MixedNut, [](const GameState* const gs)->const bool { return gs->GetMixedNutAmount() > 0; }));
 
 	//Add Mixed Eggs links
-	effects = { new Effect(PreconditionName::MixedEggs, [](GameState* const gs) { gs->AddMixedEggs(1); })};
-	addMixedEggs->SetEffect(effects);
+	addMixedEggs->AddEffect(new Effect(PreconditionName::MixedEggs, [](GameState* const gs) { gs->AddMixedEggs(1); }));
 	addMixedEggs->AddPrecondition(new Precondition(PreconditionName::CollectEgg, [](const GameState* const gs)->const bool { return gs->GetEggsAmount() > 0; }));
 
 	//Collect Eggs links
-	effects = { new Effect(PreconditionName::CollectEgg, [](GameState* const gs) { gs->CollectEggs(1); })};
-	collectEggs->SetEffect(effects);
+	collectEggs->AddEffect(new Effect(PreconditionName::CollectEgg, [](GameState* const gs) { gs->CollectEggs(1); }));
 	collectEggs->AddPrecondition(new Precondition(PreconditionName::HaveChicken, [](const GameState* const gs)->const bool { return gs->GetChickenAmount() > 0; }));
 
 	//Buy Eggs links
-	effects = { new Effect(PreconditionName::CollectEgg, [](GameState* const gs) { gs->BuyEggs(1); })};
-	buyEggs->SetEffect(effects);
+	buyEggs->AddEffect(new Effect(PreconditionName::CollectEgg, [](GameState* const gs) { gs->BuyEggs(1); }));
 
 	//Mixed Flour links
-	effects = { new Effect(PreconditionName::MixedFlour, [](GameState* const gs) { gs->AddMixedFlour(1); })};
-	addMixedFlour->SetEffect(effects);
+	addMixedFlour->AddEffect(new Effect(PreconditionName::MixedFlour, [](GameState* const gs) { gs->AddMixedFlour(1); }));
 	addMixedFlour->AddPrecondition(new Precondition(PreconditionName::CollectFlour, [](const GameState* const gs)->const bool { return gs->GetFlourAmount() > 0; }));
 
 	//Grind flour links
-	effects = { new Effect(PreconditionName::CollectFlour, [](GameState* const gs) { gs->GrindFlour(1); })};
-	grindFlour->SetEffect(effects);
+	grindFlour->AddEffect(new Effect(PreconditionName::CollectFlour, [](GameState* const gs) { gs->GrindFlour(1); }));
 	grindFlour->AddPrecondition(new Precondition(PreconditionName::CollectWheat, [](const GameState* const gs)->const bool { return gs->GetWheatAmount() > 0; }));
 
 	//Harvest Wheat links
-	effects = { new Effect(PreconditionName::CollectWheat, [](GameState* const gs) { gs->HarvestWheat(1); })};
-	harvestWheat->SetEffect(effects);
+	harvestWheat->AddEffect(new Effect(PreconditionName::CollectWheat, [](GameState* const gs) { gs->HarvestWheat(1); }));
 	harvestWheat->AddPrecondition(new Precondition(PreconditionName::HaveField, [](const GameState* const gs)->const bool { return gs->GetFieldAmount() > 0; }));
 
 	//Buy flour links
-	effects = { new Effect(PreconditionName::CollectFlour, [](GameState* const gs) { gs->BuyFlour(1); })};
-	buyFlour->SetEffect(effects);
+	buyFlour->AddEffect(new Effect(PreconditionName::CollectFlour, [](GameState* const gs) { gs->BuyFlour(1); }));
 	
 	//Mixed Nut links
-	effects = { new Effect(PreconditionName::MixedNut, [](GameState* const gs) {	gs->AddMixedNut(1);	})};
-	addMixedNut->SetEffect(effects);
+	addMixedNut->AddEffect(new Effect(PreconditionName::MixedNut, [](GameState* const gs) {	gs->AddMixedNut(1);	}));
 	addMixedNut->AddPrecondition(new Precondition(PreconditionName::CollectNut, [](const GameState* const gs)->const bool { return gs->GetNutAmount() > 0; }));
 
 	//Buy Nut links
-	effects = { new Effect(PreconditionName::CollectNut, [](GameState* const gs) { gs->BuyNut(1); })};
-	buyNut->SetEffect(effects);
+	buyNut->AddEffect(new Effect(PreconditionName::CollectNut, [](GameState* const gs) { gs->BuyNut(1); }));
 
 	goalAction = cookPancake;
 

@@ -15,11 +15,11 @@ class Action
 
 public:
 	Action();
-	Action(string n, int cost = 1);
+	Action(const string n, const int cost = 1);
 	~Action();
 
 	void AddPrecondition(const Precondition* const pc);
-	void SetEffect(vector<const Effect*> e);
+	void AddEffect(const Effect* const e);
 
 	const vector<const Precondition*> GetPreconditions()const { return preconditions; }
 	const vector<const Effect*> GetEffect()const { return effects; }

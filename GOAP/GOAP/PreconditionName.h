@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-enum class PreconditionName {
+const enum class PreconditionName {
 	GetPancake,
 	MixedEggs,
 	MixedFlour,

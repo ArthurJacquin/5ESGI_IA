@@ -12,7 +12,7 @@ class Effect
 
 public:
 	Effect();
-	Effect(PreconditionName n, void(*a)(GameState* const gs));
+	Effect(const PreconditionName n, void(*a)(GameState* const gs));
 	~Effect();
 		
 	void ProcessAction(GameState* const gs)const;

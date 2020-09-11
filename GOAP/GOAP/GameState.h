@@ -16,7 +16,7 @@ class GameState
 
 public:
 	GameState();
-	GameState(int chickenAmount, int eggsAmount, int fieldAmount, int wheatAmount, int flourAmount, int nutAmount);
+	GameState(const int chickenAmount, const int eggsAmount, const int fieldAmount, const int wheatAmount, const int flourAmount, const int nutAmount);
 
 	const int GetEggsAmount()const { return eggsAmount; }
 	const int GetFlourAmount()const { return flourAmount; }
@@ -29,16 +29,16 @@ public:
 	const int GetMixedNutAmount()const { return mixedNutAmount; }
 	const int GetFieldAmount()const { return fieldAmount; }
 
-	void CookPancake(int n);
-	void AddMixedEggs(int n);
-	void AddMixedFlour(int n);
-	void AddMixedNut(int n);
-	void CollectEggs(int n);
-	void AddChicken(int n);
-	void BuyEggs(int n);
-	void GrindFlour(int n);
-	void HarvestWheat(int n);
-	void AddField(int n);
-	void BuyFlour(int n);
-	void BuyNut(int n);
+	void CookPancake(const int n);
+	void AddMixedEggs(const int n);
+	void AddMixedFlour(const int n);
+	void AddMixedNut(const int n);
+	void CollectEggs(const int n);
+	void AddChicken(const int n);
+	void BuyEggs(const int n);
+	void GrindFlour(const int n);
+	void HarvestWheat(const int n);
+	void AddField(const int n);
+	void BuyFlour(const int n);
+	void BuyNut(const int n);
 };

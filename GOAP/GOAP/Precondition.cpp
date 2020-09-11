@@ -6,7 +6,7 @@ Precondition::Precondition()
     condition = [](const GameState* const gs)->const bool { return true; };
 }
 
-Precondition::Precondition(PreconditionName n, const bool(*f)(const GameState* const))
+Precondition::Precondition(const PreconditionName n, const bool(*f)(const GameState* const))
     :name(n), condition(f)
 {
 }
@@ -15,7 +15,7 @@ Precondition::~Precondition()
 {
 }
 
-bool Precondition::Process(const GameState* const gs) const
+const bool Precondition::Process(const GameState* const gs) const
 {
     return condition(gs);
 }

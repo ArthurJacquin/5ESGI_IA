@@ -8,7 +8,7 @@ Action::Action()
 	cost = 1;
 }
 
-Action::Action(string n, int cost)
+Action::Action(const string n, const int cost)
 	:name(n), cost(cost)
 {
 	preconditions.reserve(0);
@@ -24,7 +24,7 @@ void Action::AddPrecondition(const Precondition* const pc)
 	preconditions.push_back(pc);
 }
 
-void Action::SetEffect(vector<const Effect*> e)
+void Action::AddEffect(const Effect* const e)
 {
-	effects = e;
+	effects.push_back(e);
 }
