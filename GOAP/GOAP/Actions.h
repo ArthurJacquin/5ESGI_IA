@@ -23,4 +23,5 @@ public:
 
 	const vector<const Precondition*> GetPreconditions()const { return preconditions; }
 	const Effect* GetEffect()const { return effect; }
+	const int GetCost() const { return cost; }
 };
