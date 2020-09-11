@@ -6,8 +6,9 @@ class Tamagochi
 {
 	std::string name;
 
-	int currentHunger;
-	int currentThirst;
+	unsigned int currentHunger;
+	unsigned int currentThirst;
+	unsigned int currentTiredness;
 	bool isAlive;
 
 public:
@@ -16,11 +17,15 @@ public:
 
 	void Drink(GameState* const gs);
 	void Eat(GameState* const gs);
+	void Sleep(GameState* const gs);
+	void StopMusic(GameState* const gs);
+	void Debug(GameState* const gs);
 	void Die();
 
 	bool IsAlive()const { return isAlive; }
-	const int GetCurrentHunger()const { return currentHunger; }
-	const int GetCurrentThirst()const { return currentThirst; }
+	const unsigned int GetCurrentHunger()const { return currentHunger; }
+	const unsigned int GetCurrentThirst()const { return currentThirst; }
+	const unsigned int GetCurrentTiredness() const { return currentTiredness; }
 
 	void UpdateStats();
 	void DisplayStats()const;

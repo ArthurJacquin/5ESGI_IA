@@ -27,6 +27,9 @@ void StateMachine::CreateStateMachine()
     State* drink = new State("Drink", [](Tamagochi* const t, GameState* const gs) { t->Drink(gs); });
     State* hungry = new State("Hungry", [](Tamagochi* const t, GameState* const gs) {});
     State* eat = new State("Eat", [](Tamagochi* const t, GameState* const gs) { t->Eat(gs); });
+    State* tired = new State("Tired", [](Tamagochi* const t, GameState* const gs) { });
+    State* stopMusic = new State("Stop Music", [](Tamagochi* const t, GameState* const gs) { t->StopMusic(gs); });
+    State* sleep = new State("Sleep", [](Tamagochi* const t, GameState* const gs) { t->Sleep(gs);  });
     State* death = new State("Death", [](Tamagochi* const t, GameState* const gs) { t->Die(); });
 
     //---------------------------Thirsthy-----------------
@@ -56,7 +59,7 @@ void StateMachine::CreateStateMachine()
 
     //--------------------Hungry------------------
     //Life-> Hungry
-    auto checkHunger = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentHunger() >= ConstValues::hungerThreshold;; };
+    auto checkHunger = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentHunger() >= ConstValues::hungerThreshold; };
     Transition* lifeToHunger = new Transition(checkHunger);
     life->AddTransition(lifeToHunger, hungry);
 
@@ -75,10 +78,45 @@ void StateMachine::CreateStateMachine()
     eat->AddTransition(eatToHungry, hungry);
 
     //Eat -> Life
-    auto checkSatiety = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentHunger() < ConstValues::hungerThreshold;; };
+    auto checkSatiety = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentHunger() < ConstValues::hungerThreshold; };
     Transition* eatToLife = new Transition(checkSatiety);
     eat->AddTransition(eatToLife, life);
     
+    //-------------------Tired-------------------
+    //Life-> Tired
+    auto checkTiredness = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentTiredness() >= ConstValues::tiredThreshold; };
+    Transition* lifeToTired = new Transition(checkTiredness);
+    life->AddTransition(lifeToTired, tired);
+
+    //Tired -> Sleep
+    auto checkMusicVolume = [](const Tamagochi* const t, const GameState* const gs)->const bool {  return gs->getMusicVolume() < 50; };
+    Transition* TiredToSleep = new Transition(checkMusicVolume);
+    tired->AddTransition(TiredToSleep, sleep);
+
+    //Tired -> StopMusic
+    auto checkMusicVolumeDown = [](const Tamagochi* const t, const GameState* const gs)->const bool {  return gs->getMusicVolume() > 50; };
+    Transition* TiredToStopMusic = new Transition(checkMusicVolumeDown);
+    tired->AddTransition(TiredToStopMusic, stopMusic);
+
+    //StopMusic -> Sleep
+    auto checkStopMusic = [](const Tamagochi* const t, const GameState* const gs)->const bool { return gs->getMusicVolume() <= 1; };
+    Transition* StopMusicToSleep = new Transition(checkStopMusic);
+    stopMusic->AddTransition(StopMusicToSleep, sleep);
+
+    //Tired -> Death
+    auto checkExhaustion = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentTiredness() >= ConstValues::maxTiredness; };
+    Transition* tiredToDeath = new Transition(checkExhaustion);
+    tired->AddTransition(tiredToDeath, death);
+
+    //Sleep -> Tired
+    Transition* sleepToTired = new Transition(checkTiredness);
+    sleep->AddTransition(sleepToTired, tired);
+
+    //Sleep -> Life
+    auto checkRest = [](const Tamagochi* const t, const GameState* const gs)->const bool { return t->GetCurrentTiredness() < ConstValues::tiredThreshold; };
+    Transition* sleepToLife = new Transition(checkRest);
+    sleep->AddTransition(sleepToLife, life);
+
     currentState = life;
 }
 
@@ -90,7 +128,7 @@ void StateMachine::ProcessState()
         if (currentState->GetPairs()[i].first->Process(tamagochi, gameState))
         {
             ChangeState(currentState->GetPairs()[i].second, gameState);
-            
+            break;
         }
     }
 }

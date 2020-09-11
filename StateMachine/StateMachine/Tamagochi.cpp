@@ -8,6 +8,7 @@ Tamagochi::Tamagochi(std::string s)
 	name = s;
 	currentHunger = 0;
 	currentThirst = 0;
+	currentTiredness = 0;
 	isAlive = true;
 }
 
@@ -27,6 +28,25 @@ void Tamagochi::Eat(GameState* const gs)
 	std::cout << "-> " << name << " mange\n";
 }
 
+void Tamagochi::Sleep(GameState* const gs)
+{
+	currentTiredness -= ConstValues::tiredDecrementFromMusic;
+	//gs->setMusicVolume(gs->getMusicVolume() - ConstValues::tiredDecrementFromMusic);
+	drawing::sleepingDog();
+	std::cout << "-> " << name << " dort\n";
+}
+
+void Tamagochi::StopMusic(GameState* const gs)
+{
+	gs->setMusicVolume(0);
+	std::cout << name << " a stop la musique ! \n";
+}
+
+void Tamagochi::Debug(GameState* const gs)
+{
+	std::cout << "tired" << std::endl;
+}
+
 void Tamagochi::Die()
 {
 	drawing::deadDog();
@@ -41,6 +61,9 @@ void Tamagochi::UpdateStats()
 	
 	if(currentHunger < ConstValues::maxHunger)
 		currentHunger += ConstValues::hungerIncrement;
+
+	if (currentTiredness < ConstValues::maxTiredness)
+		currentTiredness += ConstValues::tiredIncrement;
 }
 
 void Tamagochi::DisplayStats()const
@@ -48,5 +71,6 @@ void Tamagochi::DisplayStats()const
 	std::cout << "Stats :" << std::endl;
 	std::cout << "Hunger : " << currentHunger << std::endl; 
 	std::cout << "Thirst : " << currentThirst << std::endl;
+	std::cout << "Tiredness : " << currentTiredness << std::endl;
 	std::cout << std::endl;
 }
