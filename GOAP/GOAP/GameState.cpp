@@ -7,7 +7,7 @@ GameState::GameState()
 {
 }
 
-GameState::GameState(int eggs, int flour, int nut, int chicken, int fieldAmount, int wheat)
+GameState::GameState(int chicken, int eggs, int fieldAmount, int wheat, int flour, int nut)
 	:eggsAmount(eggs), flourAmount(flour), nutAmount(nut), chickenAmount(chicken), fieldAmount(fieldAmount), wheatAmount(wheat), mixedEggsAmount(0), mixedFlourAmount(0), mixedNutAmount(0), pancakeAmount(0)
 {
 }

@@ -16,7 +16,7 @@ class GameState
 
 public:
 	GameState();
-	GameState(int eggsAmount, int flourAmount, int nutAmount, int chickenAmount, int fieldAmount, int wheatAmount);
+	GameState(int chickenAmount, int eggsAmount, int fieldAmount, int wheatAmount, int flourAmount, int nutAmount);
 
 	const int GetEggsAmount()const { return eggsAmount; }
 	const int GetFlourAmount()const { return flourAmount; }
