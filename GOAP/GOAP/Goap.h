@@ -3,9 +3,9 @@
 
 class GoapSolver
 {
+	const Action* goalAction;
 	vector<Action*> allActions;
-	Action* goalAction;
-
+	vector<vector<const Action*>> bestPaths;
 
 public:
 	GoapSolver();
@@ -13,8 +13,8 @@ public:
 	~GoapSolver();
 
 	void CreateSolver();
-	void Solve(GameState gs)const;
+	void Solve(GameState* gs);
 	void ExecuteActions(GameState* const gs)const;
-	vector<Action*> SolveTree(const Action* const head)const;
-	vector<Action*> GetActionsResolvingPrecondition(const Precondition* const p)const;
+	void SolveTree(const Action* const head, vector<const Action*> path, int pathCost, vector<const Action*>& bestPath, int& bestCost, const GameState* const gs);
+	vector<const Action*> GetActionsResolvingPrecondition(const Precondition* const p)const;
 };

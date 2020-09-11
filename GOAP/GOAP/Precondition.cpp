@@ -2,11 +2,11 @@
 
 Precondition::Precondition()
 {
-    name = "";
+    name = PreconditionName::GetPancake;
     condition = [](const GameState* const gs)->const bool { return true; };
 }
 
-Precondition::Precondition(string n, const bool(*f)(const GameState* const))
+Precondition::Precondition(PreconditionName n, const bool(*f)(const GameState* const))
     :name(n), condition(f)
 {
 }

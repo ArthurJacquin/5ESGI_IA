@@ -2,11 +2,11 @@
 
 Effect::Effect()
 {
-	name = "";
+	name = PreconditionName::GetPancake;
 	addRessource = [](GameState* gs) {};
 }
 
-Effect::Effect(string n, void(*a)(GameState* const gs))
+Effect::Effect(PreconditionName n, void(*a)(GameState* const gs))
 	:name(n), addRessource(a)
 {
 }
