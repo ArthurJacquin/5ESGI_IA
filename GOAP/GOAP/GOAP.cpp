@@ -114,11 +114,18 @@ vector<Action*> GoapSolver::SolveTree(const Action* const head)const
 {
 	vector<Action*> bestPath;
 	vector<Action*> currentTestPath;
+	vector<Action*> actionsFromPrecondition;
 
+	int N = head->GetPreconditions().size();
+	for (size_t i = 0; i < N; ++i)
+	{
+		actionsFromPrecondition.reserve();
+		actionsFromPrecondition = GetActionsResolvingPrecondition(head->GetPreconditions()[i])
 
+	}
 }
 
-vector<Action*> GoapSolver::GetActionsResolvingProcondition(const Precondition* const p)const
+vector<Action*> GoapSolver::GetActionsResolvingPrecondition(const Precondition* const p)const
 {
 	vector<Action*> actions;
 	int N = allActions.size();
