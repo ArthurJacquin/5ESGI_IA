@@ -116,12 +116,14 @@ vector<Action*> GoapSolver::SolveTree(const Action* const head)const
 	vector<Action*> currentTestPath;
 	vector<Action*> actionsFromPrecondition;
 
-	int N = head->GetPreconditions().size();
-	for (size_t i = 0; i < N; ++i)
-	{
-		actionsFromPrecondition.reserve();
-		actionsFromPrecondition = GetActionsResolvingPrecondition(head->GetPreconditions()[i])
+	int bestCost = 999;
+	int currentCost = 999;
 
+	actionsFromPrecondition = GetActionsResolvingPrecondition(head->GetPreconditions()[0]);
+	int N = actionsFromPrecondition.size();
+	for (size_t i = 0; i < N; i++)
+	{
+		actionsFromPrecondition[N]
 	}
 }
 
