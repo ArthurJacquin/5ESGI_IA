@@ -7,12 +7,13 @@ using namespace std;
 class Precondition
 {
 	string name;
-	bool(*condition)(GameState*);
+	const bool(*condition)(const GameState* const);
 
 public :
 	Precondition();
-	Precondition(string name, bool(*f)(GameState*));
+	Precondition(string name, const bool(*f)(const GameState* const));
 	~Precondition();
 
-	bool Process(GameState* gs) const;
+	bool Process(const GameState* const gs) const;
+	const string GetName()const { return name; };
 };

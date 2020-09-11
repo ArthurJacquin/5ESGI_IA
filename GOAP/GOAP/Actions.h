@@ -1,14 +1,16 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Effect.h"
+#include "Precondition.h"
 
 using namespace std;
 
 class Action
 {
 	string name;
-	vector<string> preconditions;
-	string effect;
+	vector<const Precondition*> preconditions;
+	const Effect* effect;
 	int cost;
 
 public:
@@ -16,9 +18,9 @@ public:
 	Action(string n, int cost = 1);
 	~Action();
 
-	void AddPrecondition(string pc);
-	void SetEffect(string e);
+	void AddPrecondition(const Precondition* const pc);
+	void SetEffect(const Effect* const e);
 
-	vector<string> GetPreconditions()const { return preconditions; }
-	string GetEffect()const { return effect; }
+	const vector<const Precondition*> GetPreconditions()const { return preconditions; }
+	const Effect* GetEffect()const { return effect; }
 };
