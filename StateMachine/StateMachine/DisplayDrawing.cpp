@@ -25,7 +25,7 @@ void drawing::eatOrDrinkDog()
 void drawing::sleepingDog()
 {  
     std::cout << endl;
-    std::cout << "          __  \\n";
+    std::cout << "          __  \n";
     std::cout << "       (/_ _ \\)\n";
     std::cout << "      /`\\_Y_/`\\\n";
     std::cout << "      \\)     (/\n";

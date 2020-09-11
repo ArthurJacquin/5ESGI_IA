@@ -11,6 +11,7 @@ int main()
     //Start History
     int foodAmount;
     int waterAmount;
+    int musicVolume;
     string name;
     
     cout << "Welcome to TAMAGOCHI !" << endl;
@@ -18,13 +19,15 @@ int main()
     cout << "Let's set some parameters !" << endl;
     cout << "Choose a name ?" << endl;
     cin >> name;
-    cout << "Food amout ?" << endl;
+    cout << "Food amount ?" << endl;
     cin >> foodAmount;
-    cout << "Water amout ?" << endl;
+    cout << "Water amount ?" << endl;
     cin >> waterAmount;
+    cout << "Music volume ?" << endl;
+    cin >> musicVolume;
 
     //Init
-    GameState gs(foodAmount, waterAmount);
+    GameState gs(foodAmount, waterAmount, musicVolume);
     Tamagochi tama(name);
     State initialState = State("Life", [](Tamagochi* t, GameState* gs) {});
     StateMachine sm(&tama, &gs, &initialState);
