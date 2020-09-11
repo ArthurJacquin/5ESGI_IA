@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class GameState
 {
@@ -15,7 +16,7 @@ class GameState
 
 public:
 	GameState();
-	GameState(int eggsAmount, int flourAmount, int nutAmount, int chickenAmount, int wheatAmount);
+	GameState(int eggsAmount, int flourAmount, int nutAmount, int chickenAmount, int fieldAmount, int wheatAmount);
 
 	const int GetEggsAmount()const { return eggsAmount; }
 	const int GetFlourAmount()const { return flourAmount; }
@@ -26,16 +27,17 @@ public:
 	const int GetMixedEggsAmount()const { return mixedEggsAmount; }
 	const int GetMixedFlourAmount()const { return mixedFlourAmount; }
 	const int GetMixedNutAmount()const { return mixedNutAmount; }
-	const int GetFieldAmount()const { return mixedNutAmount; }
+	const int GetFieldAmount()const { return fieldAmount; }
 
-	void AddEggs(int n) { eggsAmount += n; }
+	void AddEggs(int n) { eggsAmount += n; --chickenAmount; }
 	void AddFlour(int n) { flourAmount += n; }
 	void AddNut(int n) { nutAmount += n; }
 	void AddChicken(int n) { chickenAmount += n; }
-	void AddWheat(int n) { wheatAmount += n; }
-	void AddPancake(int n) { pancakeAmount += n; }
+	void AddWheat(int n) { wheatAmount += n; --fieldAmount; }
+	void AddPancake(int n) { std::cout << "Pancake !!!" << std::endl;  pancakeAmount += n; }
 	void AddMixedEggs(int n) { mixedEggsAmount += n; }
 	void AddMixedFlour(int n) { mixedFlourAmount += n; }
 	void AddMixedNut(int n) { mixedNutAmount += n; }
 	void AddField(int n) { fieldAmount += n; }
+
 };

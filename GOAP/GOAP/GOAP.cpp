@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Goap.h"
 
 GoapSolver::GoapSolver()
@@ -17,12 +18,11 @@ GoapSolver::~GoapSolver()
 	{
 		delete allActions[i];
 	}
-
-	delete goalAction;
 }
 
 void GoapSolver::CreateSolver()
 {
+	cout << "Creating solver" << endl;
 	allActions.reserve(10);
 	
 	Action* cookPancake = new Action("Cook Pancake");
@@ -92,18 +92,23 @@ void GoapSolver::CreateSolver()
 
 	//Buy Nut links
 	buyNut->SetEffect(new Effect(PreconditionName::CollectNut, [](GameState* const gs) { gs->AddNut(1); }));
+
+	goalAction = cookPancake;
+
+	cout << "Solver created !!!!" << endl;
 }
 
 void GoapSolver::Solve(GameState* gs)
 {
 	int nbPrecondition = goalAction->GetPreconditions().size();
-	vector<const Action*> path;
-	int pathCost = 0;
-	vector<const Action*> bestPath;
-	int bestCost = 9999;
 
 	for (size_t i = 0; i < nbPrecondition; ++i)
 	{
+		vector<const Action*> path;
+		int pathCost = 0;
+		vector<const Action*> bestPath;
+		int bestCost = 9999;
+
 		if (goalAction->GetPreconditions()[i]->Process(gs))
 		{
 			continue;
@@ -119,17 +124,40 @@ void GoapSolver::Solve(GameState* gs)
 	}
 }
 
-void GoapSolver::ExecuteActions(GameState* const gs) const
+void GoapSolver::ExecuteActions(GameState* const gs)
 {
 	int nbPaths = bestPaths.size();
+	bool everythingOK = true;
+	//Tous les chemins
 	for (size_t i = 0; i < nbPaths; ++i)
 	{
 		int nbAction = bestPaths[i].size();
-		for (size_t j = 0; j < nbAction; ++j)
+		//Toutes les actions
+		for (int j = nbAction - 1; j >= 0 ; --j)
 		{
+			int nbPrecond = bestPaths[i][j]->GetPreconditions().size();
+			//Toutes les preconditions OK
+			for (size_t k = 0; k < nbPrecond; ++k)
+			{
+				if (!bestPaths[i][j]->GetPreconditions()[k]->Process(gs))
+				{
+					everythingOK = false;
+					break;
+				}
+			}
+
+			if (!everythingOK)
+				break;
+
 			bestPaths[i][j]->GetEffect()->ProcessAction(gs);
 		}
+
+		bestPaths[i].clear();
 	}
+	bestPaths.clear();
+
+	if (everythingOK)
+		goalAction->GetEffect()->ProcessAction(gs);
 }
 
 void GoapSolver::SolveTree(const Action* const currentAction, vector<const Action*> path, int pathCost, vector<const Action*>& bestPath, int& bestCost, const GameState* const gs)
@@ -148,7 +176,6 @@ void GoapSolver::SolveTree(const Action* const currentAction, vector<const Actio
 		return;
 	}
 
-	vector<const Action*> actionsFromPrecondition;
 
 	//Si toutes les preconditions sont vraies -> return
 	bool preconditionAreTrue = true;
@@ -173,6 +200,7 @@ void GoapSolver::SolveTree(const Action* const currentAction, vector<const Actio
 
 	//Recupere les enfants
 	//Fonctionne qu'avec 1 seul enfant
+	vector<const Action*> actionsFromPrecondition;
 	actionsFromPrecondition = GetActionsResolvingPrecondition(currentAction->GetPreconditions()[0]);
 
 	int N = actionsFromPrecondition.size();
