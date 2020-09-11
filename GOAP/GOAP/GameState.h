@@ -29,15 +29,16 @@ public:
 	const int GetMixedNutAmount()const { return mixedNutAmount; }
 	const int GetFieldAmount()const { return fieldAmount; }
 
-	void AddEggs(int n) { eggsAmount += n; --chickenAmount; }
-	void AddFlour(int n) { flourAmount += n; }
-	void AddNut(int n) { nutAmount += n; }
-	void AddChicken(int n) { chickenAmount += n; }
-	void AddWheat(int n) { wheatAmount += n; --fieldAmount; }
-	void AddPancake(int n) { std::cout << "Pancake !!!" << std::endl;  pancakeAmount += n; }
-	void AddMixedEggs(int n) { mixedEggsAmount += n; }
-	void AddMixedFlour(int n) { mixedFlourAmount += n; }
-	void AddMixedNut(int n) { mixedNutAmount += n; }
-	void AddField(int n) { fieldAmount += n; }
-
+	void CookPancake(int n);
+	void AddMixedEggs(int n);
+	void AddMixedFlour(int n);
+	void AddMixedNut(int n);
+	void CollectEggs(int n);
+	void AddChicken(int n);
+	void BuyEggs(int n);
+	void GrindFlour(int n);
+	void HarvestWheat(int n);
+	void AddField(int n);
+	void BuyFlour(int n);
+	void BuyNut(int n);
 };
