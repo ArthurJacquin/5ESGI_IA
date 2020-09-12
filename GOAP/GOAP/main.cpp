@@ -11,6 +11,7 @@ int main()
 	int wheatAmount;
 	int flourAmount;
 	int nutAmount;
+	int pancakeAmount;
 
 	//User Setup
 	std::cout << "Pancakes !!!" << std::endl << std::endl;
@@ -28,6 +29,8 @@ int main()
 	std::cout << "Nut amount ?" << std::endl;
 	cin >> nutAmount;
 
+	std::cout << "How many pancakes do you want ?" << std::endl;
+	cin >> pancakeAmount;
 
 	//Objects creation
 	GameState gs(chickenAmount, eggsAmount, fieldAmount, wheatAmount, flourAmount, nutAmount);
@@ -36,7 +39,7 @@ int main()
 	goap.CreateSolver();
 
 	//The game
-	while (gs.GetPancakeAmount() < 10)
+	while (gs.GetPancakeAmount() < pancakeAmount)
 	{
 		std::cout << std::endl;
 		std::cout << "----------------------------" << std::endl;
@@ -47,8 +50,10 @@ int main()
 		goap.Solve(&gs);
 		goap.ExecuteActions(&gs);
 
-		Sleep(1000);
+		Sleep(100);
 	}
+
+	std::cout << "\n You created " << gs.GetPancakeAmount() << " pancakes ! \n";
 
 	return 0;
 }

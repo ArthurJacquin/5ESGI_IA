@@ -98,6 +98,7 @@ void GoapSolver::CreateSolver()
 	cout << "Solver created !!!!" << endl;
 }
 
+//Retourne les meilleurs chemins lors de multiples préconditions (stock dans bestPaths)
 void GoapSolver::Solve(GameState* gs)
 {
 	int nbPrecondition = goalAction->GetPreconditions().size();
@@ -124,6 +125,7 @@ void GoapSolver::Solve(GameState* gs)
 	}
 }
 
+//Execute toutes les actions du meilleur chemin et l'action finale (get Pancake)
 void GoapSolver::ExecuteActions(GameState* const gs)
 {
 	int nbPaths = bestPaths.size();
@@ -170,6 +172,7 @@ void GoapSolver::ExecuteActions(GameState* const gs)
 	}
 }
 
+//Retourne le chemin le moins couteux dans bestPath
 void GoapSolver::SolveTree(const Action* const currentAction, vector<const Action*> path, int pathCost, vector<const Action*>& bestPath, int& bestCost, const GameState* const gs)
 {
 	path.push_back(currentAction);
@@ -227,6 +230,7 @@ void GoapSolver::SolveTree(const Action* const currentAction, vector<const Actio
 	}
 }
 
+//Récupère toutes les actions en fonction d'une précondition
 vector<const Action*> GoapSolver::GetActionsResolvingPrecondition(const Precondition* const p)const
 {
 	vector<const Action*> actions;
